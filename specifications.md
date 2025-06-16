@@ -18,13 +18,13 @@ MarkPlot supports two types of entity annotations:
 
 The entity names appear in the final text output (hereinafter called _final text_) and provide semantic tracking.
 
-**Invisible entities** wrap the entity name with parentheses `@@(EntityName)`:
+**hidden entities** wrap the entity name with parentheses `@@(EntityName)`:
 ```markplot
 @@(Gandalf) The wizard raised his hands.
 ```
 > The wizard raised his hands.
 
-Invisible entities are tracked for semantic analysis but do not appear in the final text. This is useful for referencing an entity when it appears in a way other than its name, or when you want to track entities without cluttering the narrative text.
+hidden entities are tracked for semantic analysis but do not appear in the final text. This is useful for referencing an entity when it appears in a way other than its name, or when you want to track entities without cluttering the narrative text.
 
 An entity can be any narrative element that you want to track, analyze, or reference throughout your text - characters, locations, objects, events... By marking these elements as entities, you create a rich semantic layer that tools can use for many purposes, for example:
 - Build character profiles and relationship networks
@@ -50,7 +50,7 @@ Content capture is a core mechanism in MarkPlot that associates entities with th
 
 In this example:
 - The first sentence is associated with Jules
-- The second sentence is associated with Mary  
+- The second sentence is associated with Mary
 - The third sentence is associated with both Jules and Mary
 
 This simple, consistent rule ensures predictable behavior while maintaining the semantic connections between entities and their narrative context.
@@ -86,7 +86,7 @@ MarkPlot supports three distinct categories of modifiers:
 #### 1.3.2 Modifier Parameters
 Modifiers can accept parameters using two different syntaxes:
 
-**Invisible parameters** use parentheses `()` for meta-information that should not appear in the final text:
+**hidden parameters** use parentheses `()` for meta-information that should not appear in the final text:
 ```markplot
 @@Jules.age(42) walked down the street.           # age metadata stored but hidden
 @@.status(draft)                                  # document status hidden
@@ -137,8 +137,8 @@ Key points:
 
 #### 1.3.3 Visibility Rules
 Modifiers themselves never appear in the final text, but their parameters may:
-- **Modifiers**: Always invisible (`.drunk`, `.PROFESSION`, etc.)
-- **Invisible parameters** `()`: Never appear in final text
+- **Modifiers**: Always hidden (`.drunk`, `.PROFESSION`, etc.)
+- **hidden parameters** `()`: Never appear in final text
 - **Visible parameters** `[]`: Always appear in final text
 
 ```markplot
@@ -499,10 +499,10 @@ The null entity is particularly useful for:
 - Creating hidden document structure (see §2.7)
 Because it doesn't create actual entity relationships, the null entity is perfect for adding meta-information that should influence processing but not narrative analysis:
 ```markplot
-@@.status(draft)                      # Document status (invisible)
+@@.status(draft)                      # Document status (hidden)
 @@.HIGHLIGHT[Important text]          # Visual formatting (visible)
-@@.editorial(Needs revision)          # Editorial notes (invisible)
-@@.type(chapter)                      # Document structure (invisible)
+@@.editorial(Needs revision)          # Editorial notes (hidden)
+@@.type(chapter)                      # Document structure (hidden)
 ```
 ### 1.6 Annotation Scope
 MarkPlot annotations follow specific scope rules depending on their placement and modifiers.
@@ -546,7 +546,7 @@ Normal visible text continues here...
 #### 1.7.1 Syntax
 The syntax follows this pattern:
 - Must use the null entity (`@@.`)
-- Markdown syntax is enclosed in parentheses (invisible parameters)
+- Markdown syntax is enclosed in parentheses (hidden parameters)
 - Can be used with any valid Markdown syntax
 - Applies to the sentence containing the annotation
 Examples:
@@ -563,7 +563,7 @@ Examples:
 - Tools should treat them as equivalent to their visible Markdown counterparts for analysis purposes
 - Each annotation applies only to its containing sentence
 #### 1.7.3 Use Cases
-- Invisible document structure
+- hidden document structure
 - Literary analysis markers
 - Working notes and annotations
 - Alternative organization schemes
@@ -667,7 +667,7 @@ This section provides practical examples of MarkPlot in action, demonstrating ho
 > Jules entered the café and spotted reading by the window. Jules approached her table.
 In this example:
 - Two character entities (Jules and Marie) are defined
-- Jules is visible in the text, Marie is invisible
+- Jules is visible in the text, Marie is hidden
 - A visible parameter (.STATUS[reading]) provides narrative content
 - A temporary state modifier (.happy) is applied to Jules as metadata
 ### 4.2 Rich Narrative Structure
@@ -682,8 +682,8 @@ This more complex example demonstrates:
 - Header-scoped annotations (Place and Date)
 - Point of view indicators (Jules.Pov)
 - Character and object typing
-- Invisible entity references with visible parameters
-- Metadata storage with invisible parameters
+- hidden entity references with visible parameters
+- Metadata storage with hidden parameters
 ### 4.3 Timeline and Events
 ```markplot
 @@(1942-06-04) The @@Allied_Forces prepared for @@D_Day.Event.
@@ -693,8 +693,8 @@ This more complex example demonstrates:
 This historical example shows how MarkPlot can track complex timelines with:
 - Absolute dates with different precision
 - Events with temporal context
-- Invisible entity references with visible descriptive parameters
-- Mixed visible and invisible entities for narrative control
+- hidden entity references with visible descriptive parameters
+- Mixed visible and hidden entities for narrative control
 ### 4.4 Relationships and Dialog
 ```markplot
 @@Jules.Character asked, "What do you think of my story?"
@@ -703,7 +703,7 @@ This historical example shows how MarkPlot can track complex timelines with:
 ```
 This dialog example demonstrates:
 - Character attribution with visible entities in narrative
-- Mood tracking as invisible metadata
-- Invisible entities with visible parameters for narrative elements
+- Mood tracking as hidden metadata
+- hidden entities with visible parameters for narrative elements
 - Clean dialog without cluttered annotations
 - Mixed visible and hidden entity references
