@@ -38,5 +38,29 @@ layout: cheatsheet
     <tr><td><code>@@Entity.Event</code></td><td><code>@@Entity.Type(event)</code></td></tr>
     <tr><td><code>@@.Draft</code></td><td><code>@@.Status(draft)</code></td></tr>
     <tr><td><code>@@.Final</code></td><td><code>@@.Status(final)</code></td></tr>
+    <tr><td><code>@@TemporalEntity.DateTime</code></td><td><code>@@TemporalEntity.Type(datetime)</code></td></tr>
 </table>
-Toto
+
+<table>
+    <caption>Titles</caption>
+    <tr><th>Description</th><th>Syntax</th></tr>
+    <tr><td>Level 1</td><td><code># Title</code></td></tr>
+    <tr><td>Level 2</td><td><code>## Title</code></td></tr>
+    <tr><td>Level 3</td><td><code>### Title</code></td></tr>
+    <tr><td>Level 4</td><td><code>#### Title</code></td></tr>
+    <tr><td>Level 5</td><td><code>##### Title</code></td></tr>
+    <tr><td>Level 6</td><td><code>###### Title</code></td></tr>
+    <tr><td>Hidden Level 1</td><td><code>$.(# Title)</code></td></tr>
+    <tr><td>Hidden Level 2</td><td><code>$.(## Title)</code></td></tr>
+    <tr><td>Hidden Level 3</td><td><code>$.(### Title)</code></td></tr>
+    <tr><td>Hidden Level 4</td><td><code>$.(#### Title)</code></td></tr>
+    <tr><td>Hidden Level 5</td><td><code>$.(##### Title)</code></td></tr>
+    <tr><td>Hidden Level 6</td><td><code>$.(###### Title)</code></td></tr>
+</table>
+
+<table>
+    <caption>Titles</caption>
+    <tr><th>Description</th><th>Syntax</th></tr>
+    <tr><td>Date</td><td><code>@@(2025-12-28)</code></td></tr>
+    <tr><td>Time</td><td><code>@@(14:00)</code></td></tr>
+</table>
