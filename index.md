@@ -31,12 +31,30 @@ Join our community on [GitHub Discussions](https://github.com/MarkPlot/markplot.
   - [Null Entity](#null-entity)
   - [Parameters for Modifiers](#parameters-for-modifiers)
 - [Modifier Summary Table](#modifier-summary-table)
+  - [Local and Global Notes](#local-and-global-notes)
 - [What's Next?](#whats-next)
   - [For Writers](#for-writers)
   - [For Developers](#for-developers)
 - [Join the Community](#join-the-community)
 
 ---
+
+## Modifier Summary Table
+
+### Local and Global Notes
+
+- **Local note**: `@@Entity(note)` (shortcut for `@@Entity.Note(note)`)  
+  Attaches a note to the entity only at this occurrence.
+- **Global note**: `@@Entity_(note)` (shortcut for `@@Entity.GNote(note)`)  
+  Attaches a note to the entity everywhere it appears, unless a local note is present.
+
+Example:
+```markplot
+@@Marie(25 years old) smiled.      # Local note (shortcut for @@Marie.Note(25 years old))
+@@Marie_(red hair)                 # Global note (shortcut for @@Marie.GNote(red hair))
+@@Marie went to the market.        # Here, "red hair" is associated with Marie
+@@Marie(30 years old) danced.      # Here, "30 years old" overrides the global note
+```
 
 ## Why MarkPlot?
 
@@ -72,6 +90,14 @@ The possibilities are endless.
 ## What is MarkPlot?
 
 MarkPlot is a simple yet powerful annotation language that helps writers organize their story elements directly within their text. No more switching between multiple documents or breaking your writing flow to check character details or plot points. With MarkPlot, you write normally while adding semantic annotations that tools can understand.
+
+The simplest way to annotate is to add information directly to an entity using parentheses:
+
+```markplot
+@@Jules(smiling) greeted @@Marie(age 25) while she was reading.
+```
+
+You can also use modifiers for more structured information:
 
 ```markplot
 @@Jules smiled at @@Marie.age(25) while she was reading.

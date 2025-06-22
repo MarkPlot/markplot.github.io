@@ -44,6 +44,38 @@ If you're new to Markdown, you can check out the [Markdown Guide](https://www.ma
 
 ### 1. Annotate Entities (Characters, Places, Events, or whatever)
 
+The simplest way to annotate something in your story is to use the following syntax:
+
+```markplot
+@@Entity(parameter)
+```
+
+For example:
+
+```markplot
+@@Anne(25 years old) smiled at @@Paul(friend).
+```
+
+**Result for readers:**
+> Anne smiled at Paul.
+
+**Behind the scenes:**
+MarkPlot-enabled tools will attach "25 years old" to Anne and "friend" to Paul as information you can see on their entity cards.
+
+#### Local and Global Notes
+
+You can attach a note to an entity for just one occurrence (local note), or for all its appearances (global note):
+
+```markplot
+@@Marie(25 years old) smiled.      # Local note (shortcut for @@Marie.Note(25 years old))
+@@Marie_(red hair)                 # Global note (shortcut for @@Marie.GNote(red hair))
+@@Marie went to the market.        # Here, "red hair" is associated with Marie
+@@Marie(30 years old) danced.      # Here, "30 years old" overrides the global note
+```
+
+- Use `@@Entity(note)` for a local note (applies only at this point in the text).
+- Use `@@Entity_(note)` for a global note (applies everywhere the entity appears, unless a local note is present).
+
 By default, entities are considered characters. If you want to annotate a place, object, or event, use the standard modifier `.Type`:
 
 ```markplot

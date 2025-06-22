@@ -3,7 +3,78 @@ title: Specifications
 ---
 
 # Specifications
+
 This document presents the complete technical specifications of the MarkPlot language, detailing its syntax, features, and implementation principles. These specifications are intended for developers wishing to create tools compatible with MarkPlot, as well as for writers seeking to fully understand the language's capabilities for managing characters, plots, timelines, and other narrative elements. The current status of these specifications is preliminary (draft) and subject to evolution.
+
+---
+
+## Table of Contents
+
+- [1. Core Syntax](#1-core-syntax)
+  - [1.1 Entities](#11-entities)
+  - [1.2 Entity and Content Capture](#12-entity-and-content-capture)
+  - [1.3 Entity Modifiers](#13-entity-modifiers)
+    - [1.3.1 Types of Modifiers](#131-types-of-modifiers)
+    - [1.3.2 Modifier Parameters](#132-modifier-parameters)
+      - [1.3.2.1 Combining Modifiers](#1321-combining-modifiers)
+      - [1.3.2.2 Null Modifier (Unqualified Annotation)](#1322-null-modifier-unqualified-annotation)
+      - [1.3.2.3 Multi-line Parameters](#1323-multi-line-parameters)
+    - [1.3.3 Visibility Rules](#133-visibility-rules)
+    - [1.3.4 Standard Modifiers](#134-standard-modifiers)
+      - [1.3.4.1 Reserved Capitalization](#1341-reserved-capitalization)
+      - [1.3.4.2 Core Standard Modifiers](#1342-core-standard-modifiers)
+      - [1.3.4.3 Standard Modifier Scope](#1343-standard-modifier-scope)
+      - [1.3.4.4 Overriding Standard Modifier Scope](#1344-overriding-standard-modifier-scope)
+      - [1.3.4.5 Temporal Entities](#1345-temporal-entities)
+        - [1.3.4.5.1 Absolute Time](#13451-absolute-time)
+        - [1.3.4.5.2 Abstract Time](#13452-abstract-time)
+        - [1.3.4.5.3 Alternative Calendars](#13453-alternative-calendars)
+        - [1.3.4.5.4 Temporal Scope](#13454-temporal-scope)
+        - [1.3.4.5.5 Integration Examples](#13455-integration-examples)
+    - [1.3.5 Application Specific Modifiers](#135-application-specific-modifiers)
+      - [1.3.5.1 Namespace Definition](#1351-namespace-definition)
+      - [1.3.5.2 Modifier Syntax](#1352-modifier-syntax)
+      - [1.3.5.3 Scope Rules](#1353-scope-rules)
+      - [1.3.5.4 Modifier Documentation Format](#1354-modifier-documentation-format)
+      - [1.3.5.5 Documentation Requirements](#1355-documentation-requirements)
+      - [1.3.5.6 Namespace Registration Process](#1356-namespace-registration-process)
+      - [1.3.5.7 Registration Fees and Contributions](#1357-registration-fees-and-contributions)
+    - [1.3.6 Modifiers in Nested Annotations](#136-modifiers-in-nested-annotations)
+    - [1.3.7 Modifier vs Punctuation](#137-modifier-vs-punctuation)
+  - [1.5 Null Entity](#15-null-entity)
+  - [1.6 Annotation Scope](#16-annotation-scope)
+    - [1.6.1 File-level Annotations](#161-file-level-annotations)
+    - [1.6.2 Header Annotations](#162-header-annotations)
+    - [1.6.3 Paragraph Annotations](#163-paragraph-annotations)
+    - [1.6.4 Custom Scope](#164-custom-scope)
+  - [1.7 Hidden Markdown Structures](#17-hidden-markdown-structures)
+    - [1.7.1 Syntax](#171-syntax)
+    - [1.7.2 Processing](#172-processing)
+    - [1.7.3 Use Cases](#173-use-cases)
+  - [1.8 Interaction with Markdown](#18-interaction-with-markdown)
+- [2. Processing and Workflow](#2-processing-and-workflow)
+  - [2.1 Parser Types and Processing Chain](#21-parser-types-and-processing-chain)
+  - [2.2 Cleanup Parser](#22-cleanup-parser)
+    - [2.2.1 Position in the Chain](#221-position-in-the-chain)
+    - [2.2.2 Operation Scope](#222-operation-scope)
+  - [2.3 Error Handling](#23-error-handling)
+- [3. Implementation Guidelines and Best Practices](#3-implementation-guidelines-and-best-practices)
+  - [3.1 Parser Implementation](#31-parser-implementation)
+    - [3.1.1 Parser Design](#311-parser-design)
+    - [3.1.2 Entity Handling](#312-entity-handling)
+    - [3.1.3 Error Recovery](#313-error-recovery)
+  - [3.2 Tool Creation Guidelines](#32-tool-creation-guidelines)
+    - [3.2.1 User Interface Design](#321-user-interface-design)
+    - [3.2.2 Entity Management](#322-entity-management)
+    - [3.2.3 Real-time Features](#323-real-time-features)
+- [4. Examples](#4-examples)
+  - [4.1 Basic Character Annotations](#41-basic-character-annotations)
+  - [4.2 Rich Narrative Structure](#42-rich-narrative-structure)
+  - [4.3 Timeline and Events](#43-timeline-and-events)
+  - [4.4 Relationships and Dialog](#44-relationships-and-dialog)
+
+---
+
 ## 1. Core Syntax
 ### 1.1 Entities
 At the heart of MarkPlot, there are **entities**. Entities are created and referenced using two _at_ signs `@@` followed by the entity name.
@@ -119,8 +190,45 @@ A parameter can be repeated if you like:
 @@Jules.mood(sad).mood(embarassed) said something.
 ```
 
+##### 1.3.2.2 Null Modifier (Unqualified Annotation)
 
-##### 1.3.2.2 Multi-line Parameters
+MarkPlot allows annotating an entity with a parameter without specifying a modifier. This is called the **null modifier**. There are two forms:
+
+- **Local null modifier** (applies only at the specific occurrence):  
+  ```markplot
+  @@Entity(parameter)
+  ```
+  This is a shortcut for `@@Entity.Note(parameter)`, where `.Note` is the standard modifier for a local note.
+
+- **Global null modifier** (applies everywhere the entity appears, unless overridden locally):  
+  ```markplot
+  @@Entity_(parameter)
+  ```
+  This is a shortcut for `@@Entity.GNote(parameter)`, where `.GNote` is the standard modifier for a global note and the underscore after the entity name indicates global scope.
+
+**Scope and precedence:**
+- The global null modifier attaches the unqualified note to the entity everywhere in the document, except where a local note is present for that entity.
+- The local null modifier always takes precedence over the global null modifier for a given occurrence.
+- Neither form overwrites or replaces explicit modifiers.
+
+**Intended use:**  
+The null modifier is designed for quick, unqualified annotations—information that is relevant in the moment but does not fit a specific, structured modifier. The global form is useful for defining recurring or default information about an entity, while the local form is for context-specific notes.
+
+**Examples:**
+```markplot
+@@Anne_(red hair)                   # Equivalent to @@Anne.GNote(red hair)
+@@Anne(25 years old) smiled.        # Equivalent to @@Anne.Note(25 years old), overrides global note here
+@@Anne went to the market.          # Here, "red hair" is associated with Anne
+@@Anne(30 years old) danced.        # Equivalent to @@Anne.Note(30 years old), overrides global note here
+```
+In these examples, "red hair" is attached to Anne globally and used everywhere except where a local note ("25 years old", "30 years old") is present.
+
+- **Note:** Unqualified annotations are less exploitable by automated tools or structured exports. For maximum semantic clarity and tool support, prefer explicit modifiers when possible.
+
+The null modifier is also used for hidden titles and structural annotations with the null entity, e.g. `@@.(# Chapter 1)`.
+
+
+##### 1.3.2.3 Multi-line Parameters
 Parameters can span multiple lines for better readability and organization:
 ```markplot
 @@Jules.BACKGROUND(

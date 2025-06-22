@@ -13,10 +13,32 @@ For a comprehensive introduction, documentation and guides, please visit the **[
 ## Quick Example
 
 ```markplot
+@@Jules(smiled) at @@Marie(25 years old) while she was reading.
+```
+
+In this example, "Jules" is annotated with a simple, unqualified note ("smiled") and "Marie" is annotated with an age ("25 years old")—both using the most basic MarkPlot annotation syntax. Readers simply see:
+
+> Jules at Marie while she was reading.
+
+You can also attach notes to entities, either locally or globally:
+
+```markplot
+@@Marie(25 years old) smiled.      # Local note (same as @@Marie.Note(25 years old))
+@@Marie_(red hair)                 # Global note (same as @@Marie.GNote(red hair))
+@@Marie went to the market.        # "red hair" is shown for Marie here
+@@Marie(30 years old) danced.      # "30 years old" overrides the global note here
+```
+
+- `@@Entity(note)` is a shortcut for `@@Entity.Note(note)` (local note).
+- `@@Entity_(note)` is a shortcut for `@@Entity.GNote(note)` (global note).
+
+You can also use more advanced forms, for example:
+
+```markplot
 @@Jules smiled at @@(Marie).age(25)her while she was reading.
 ```
 
-In this example, "Jules" is a visible entity and "Marie" is an hidden on entity with a modfier (`age`) with a hidden parameter (`25`), while readers simply see:
+Here, "Jules" is a visible entity and "Marie" is a hidden entity with a modifier (`age`) and a hidden parameter (`25`), while readers simply see:
 
 > Jules smiled at her while she was reading.
 
