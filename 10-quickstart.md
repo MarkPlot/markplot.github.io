@@ -1,26 +1,15 @@
 ---
 title: Quick Start
-nav_order: 0
+layout: page_with_toc
 ---
 
 ## Welcome to MarkPlot!
 
 MarkPlot is a semantic annotation language that extends Markdown to help you keep track of characters, places, events, and relationships in your creative writing. Let's dive in!
 
----
-
-**Quick Table of Contents**
-- [Where to start?](#where-to-start)
-- [What is Markdown?](#what-is-markdown)
-- [The 5-Minute MarkPlot Basics](#the-5-minute-markplot-basics)
-- [What's Next?](#whats-next)
-- [Tips](#tips)
-
----
-
 ## Where to start?
 
-MarkPlot is a semantic annotation language, not a standalone tool. As the project is in early development, there are currently no dedicated tools available yet—but your annotated text will be compatible with future utilities as they are released. You can already use MarkPlot in any plain text or Markdown editor.
+MarkPlot is not a standalone tool. As the project is in early development, there are currently no dedicated tools available yet—but your annotated text will be compatible with future utilities as they are released. You can already use MarkPlot in any plain text or Markdown editor.
 
 Want to help shape the project, ask questions, or get updates?
 Join our community on [GitHub Discussions](https://github.com/MarkPlot/markplot.github.io/discussions)!
@@ -42,7 +31,7 @@ If you're new to Markdown, you can check out the [Markdown Guide](https://www.ma
 
 ## The 5-Minute MarkPlot Basics
 
-### 1. Annotate Entities (Characters, Places, Events, or whatever)
+### Annotate Entities (Characters, Places, Events, or whatever)
 
 The simplest way to annotate something in your story is to use the following syntax:
 
@@ -62,15 +51,20 @@ For example:
 **Behind the scenes:**
 MarkPlot-enabled tools will attach "25 years old" to Anne and "friend" to Paul as information you can see on their entity cards.
 
+<<<<<<< BEGIN MERGE CONFLICT: local copy shown first <<<<<<<<<<<< (line 65)
+||||||| COMMON ANCESTOR content follows ||||||||||||||||||||||||| (line 65)
+---
+
+======= MERGED IN content follows =============================== (line 54)
+
+>>>>>>> END MERGE CONFLICT >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 #### Local and Global Notes
 
 You can attach a note to an entity for just one occurrence (local note), or for all its appearances (global note):
 
 ```markplot
-@@Marie(25 years old) smiled.      # Local note (shortcut for @@Marie.Note(25 years old))
-@@Marie_(red hair)                 # Global note (shortcut for @@Marie.GNote(red hair))
-@@Marie went to the market.        # Here, "red hair" is associated with Marie
-@@Marie(30 years old) danced.      # Here, "30 years old" overrides the global note
+@@Marie(25 years old) smiled.      # Local note
+@@Marie_(red hair)                 # Global note
 ```
 
 - Use `@@Entity(note)` for a local note (applies only at this point in the text).
@@ -100,7 +94,7 @@ MarkPlot-enabled tools can automatically generate entity cards:
 - Appearances: Chapter 1
 ```
 
-### 2. Hide Entities in Final Text
+### Hide Entities in Final Text
 
 Want to hide the entity name in your text but mark its presence? Add parentheses:
 
@@ -114,7 +108,7 @@ Want to hide the entity name in your text but mark its presence? Add parentheses
 **Behind the scenes:**
 The entity is still tracked, but its name is now hidden in the narrative text.
 
-### 3. Add Visible Details with Modifier Parameters
+### Add Visible Details with Modifier Parameters
 
 Want to show additional information about an entity in the text? Use square brackets:
 
@@ -135,7 +129,7 @@ The information is stored in Watson's entity card:
 - Appearances: Chapter 1
 ```
 
-### 4. Modifier Case: Context, Permanent, and Standard Modifiers
+### Modifier Case: Context, Permanent, and Standard Modifiers
 
 Modifier case matters in MarkPlot:
 
@@ -151,7 +145,7 @@ For example:
 
 In this example, Arthur is always brave (`.BRAVE`, permanent) but only tired in this context (`.tired`, temporary). Excalibur is always magical (`.MAGICAL`, permanent) and is explicitly marked as an object using the standard modifier `.Type(Object)`.
 
-### 5. Store Hidden Metadata
+### Store Hidden Metadata
 
 Use parentheses to store information that doesn't appear in the text:
 
@@ -171,7 +165,7 @@ The @@(Watson).age(35).PROFESSION[military doctor] served in Afghanistan.
 - Appearances: Chapter 1
 ```
 
-### 6. Track Timeline and Events
+### Track Timeline and Events
 
 Dates are special entities that help you manage your story's timeline:
 
@@ -191,7 +185,7 @@ MarkPlot-enabled tools can generate chronological timelines:
 - 1891-05-05: The investigation begins (Chapter 3)
 ```
 
-### 7. Indicate Point of View
+### Indicate Point of View
 
 Use modifiers to show whose perspective a scene is from:
 
@@ -218,7 +212,7 @@ MarkPlot-enabled tools track narrative structure:
 ## A Complete Example
 
 ```markplot
-# A Study in Annotation @@.GENRE[mystery]
+# A Study in Annotation @@.GENRE(mystery)
 
 ## Chapter 1 @@(Watson).Pov
 
@@ -252,7 +246,7 @@ MarkPlot-enabled tools would generate:
 ## What's Next?
 
 - **Combine with Markdown**: Use all standard Markdown features alongside MarkPlot annotations.
-- **Explore Modifiers**: Try `.mood()`, `.Status()`, or create your own.
+- **Explore Modifiers**: Try `.mood()`, `.Status(draft)`, or create your own.
 - **Build Your World**: Create a consistent set of characters, places, and events.
 - **Structure Your Narrative**: Use annotations to track plot arcs and themes.
 - **Stay tuned for tools**: While dedicated MarkPlot tools are still in development, your annotations are future-proof and will be compatible with upcoming editors and visualization utilities.
@@ -271,5 +265,5 @@ MarkPlot-enabled tools would generate:
 - The default entity type is character, but you can specify others with `.Type(...)`.
 - The distinction between lowercase, UPPERCASE, and Capitalized modifiers helps you organize context, permanent, and standard information.
 
-Ready to organize your narrative world?  
+Ready to organize your narrative world?
 Happy writing with MarkPlot!

@@ -1,8 +1,5 @@
 ---
-# Feel free to add content and custom Front Matter to this file.
-# To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
-
-layout: home
+layout: page_with_toc
 ---
 > A lightweight annotation language for writers
 
@@ -16,45 +13,6 @@ If you are a writer, you might want to read the [Quick Start Guide](#quick-start
 While dedicated tools are coming soon, you can already use MarkPlot in any text or Markdown editor.
 Want to help shape the project or ask questions?
 Join our community on [GitHub Discussions](https://github.com/MarkPlot/markplot.github.io/discussions)!
-
----
-## Table of Contents
-
-- [Why MarkPlot?](#why-markplot)
-- [What is MarkPlot?](#what-is-markplot)
-- [Key Features](#key-features)
-- [Getting Started](#getting-started)
-- [How Does It Work?](#how-does-it-work)
-  - [Annotations](#annotations)
-  - [Entities](#entities)
-  - [Modifiers](#modifiers)
-  - [Null Entity](#null-entity)
-  - [Parameters for Modifiers](#parameters-for-modifiers)
-- [Modifier Summary Table](#modifier-summary-table)
-  - [Local and Global Notes](#local-and-global-notes)
-- [What's Next?](#whats-next)
-  - [For Writers](#for-writers)
-  - [For Developers](#for-developers)
-- [Join the Community](#join-the-community)
-
----
-
-## Modifier Summary Table
-
-### Local and Global Notes
-
-- **Local note**: `@@Entity(note)` (shortcut for `@@Entity.Note(note)`)  
-  Attaches a note to the entity only at this occurrence.
-- **Global note**: `@@Entity_(note)` (shortcut for `@@Entity.GNote(note)`)  
-  Attaches a note to the entity everywhere it appears, unless a local note is present.
-
-Example:
-```markplot
-@@Marie(25 years old) smiled.      # Local note (shortcut for @@Marie.Note(25 years old))
-@@Marie_(red hair)                 # Global note (shortcut for @@Marie.GNote(red hair))
-@@Marie went to the market.        # Here, "red hair" is associated with Marie
-@@Marie(30 years old) danced.      # Here, "30 years old" overrides the global note
-```
 
 ## Why MarkPlot?
 
@@ -91,19 +49,8 @@ The possibilities are endless.
 
 MarkPlot is a simple yet powerful annotation language that helps writers organize their story elements directly within their text. No more switching between multiple documents or breaking your writing flow to check character details or plot points. With MarkPlot, you write normally while adding semantic annotations that tools can understand.
 
-The simplest way to annotate is to add information directly to an entity using parentheses:
 
-```markplot
-@@Jules(smiling) greeted @@Marie(age 25) while she was reading.
-```
-
-You can also use modifiers for more structured information:
-
-```markplot
-@@Jules smiled at @@Marie.age(25) while she was reading.
-```
-
-## Key Features
+### Key Features
 
 - **Write naturally**: Add annotations without leaving your text editor
 - **Track everything**: Characters, locations, events, and their relationships
@@ -113,135 +60,40 @@ You can also use modifiers for more structured information:
 - **Markdown compatible**: Works alongside standard Markdown format
 - **Highly customizable**: Create your own modifiers and entity types
 
-## Getting Started
 
-- [Quick Start Guide](quickstart.html) - Start using MarkPlot in 5 minutes
 
 ## How Does It Work?
 
-### Annotations
+For your first use of MarkPlot, you only need to know about **local and global notes**:
 
-As you write, MarkPlot allows you to annotate your text with semantic or narrative cues. These annotations will be removed from the text intended for your readers or modified according to precise rules that we will see later. Your annotated text is called the _original text_ or _source text_. The text intended for your readers is called the _final text_.
+### Local Notes
 
-In our documents, we will present the source text of this using code blocks like this:
-
-```markplot
-@@Holmes looked at @@Watson.
-```
-
-and the final text as quotes, like this:
-
-> Holmes looked at Watson.
-
-### Entities
-
-At the core of MarkPlot is the concept of _entity_. Entities refer to characters, places, objects, events, or whatever you want to reference.
-
-MarkPlot uses a simple syntax based on `@@` symbols to annotate entities in your text.
-
-#### Visible entities
+Attach information to an entity for one specific occurrence:
 
 ```markplot
-@@Holmes walked into the room.
+@@Marie(25 years old) smiled at @@Paul(her friend).
 ```
 
-> Holmes walked into the room.
+> Marie smiled at Paul.
 
-By default, entities are _characters_. But it can be whatever you want, using the standard modifier `Type` (more about modifiers below):
+### Global Notes
+
+Attach information to an entity for all its appearances using an underscore:
 
 ```markplot
-@@Arthur holds @@Excalibur.Type(object).
+@@Paul_(red hair) went to the market.
+# Paul is a redhead throughout the whole story.
 ```
 
-> Arthur holds Excalibur.
+> Paul went to the market.
 
-In fact, `@@Arthur` is a shorthand for `@@Arthur.Type(character)`.
-
-#### Hidden entities
-
-Often, entities don't appear by name. You can still indicate them in your text, but they won't appear in the final version. These are called _hidden_ entities. To do this, simply surround the entity's name with parentheses :
-
-```
-@@(Arthur)The king holds @@Excalibur.Type(object).
-```
-
-> The king holds Excalibur.
-
-### Modifiers
-
-Entities can be supplemented with _modifiers_. These allow you to add information about them. A modifier is added to an entity by following it with a period, then the modifier. Modifiers _never_ appear in the final text.
-
-```
-@@Holmes.sad thought deeply.
-```
-
-> Holmes thought deeply.
-
-Capitalization is significant. You are completely free to use lowercase or UPPERCASE modifiers, with one difference in usage: lowercase modifiers represent context-specific annotation, while UPPERCASE modifiers represent permanent information about the entity.
-
-```
-@@Holmes.SMART.sad thought deeply.
-```
-
-> Holmes thought deeply.
-
-In this example, Holmes is annotated as ALWAYS smart and sad at this time.
-
-Uppercase modifiers are standard, provided by MarkPlot itself or by tools that extend it. Some standard modifiers are `.Type`, `.Status`, `.Event`, `.Place`., `.Pov`., `.Object`, `.Todo`, `.Version`., `.Draft`, `.Final`.
-
-#### Null entity
-
-If you read the list of standard modifiers carefully, you might wonder what some of them mean. What does "@@Homes.Draft" mean? Nothing, indeed. Some modifiers are only used to annotate the entire text or part of it. They don't apply to any particular entity in the text. For these, MarkPlot provides the _Null Entity_. How do you use it? Simply don't write any entity between the two at signs and the dot:
-```
-@@.Draft
-```
-
-Null entity annotations are always removed from the final text.
-
-If you apply a null entity annotation to a Markdown title, it should apply only to this section:
-
-```
-## The Day after @@.Todo(Check the facts)
-```
-
-> ## The Day after
-
-#### Parameters for modifiers
-
-You can add parameters to a modifier either to specify the information carried by the modifier, or when using the modifier to categorize the information carried by the parameter.
-
-For example:
-
-```markplot
-## The Day after @@.Todo(Check the facts)
-```
-Here, `Check the facts` is the parameter for the `.Todo` modifier. It complements the information in the "todo" annotation by indicating the task to be performed.
-
-Another example:
-
-```markplot
-@@Holmes.mood(sad) was staring into the fire burning in the hearth.
-[...]
-As a new idea crossed his mind, @@(Holmes).mood(galvanized)he got up abruptly and rushed to @@Watson to wake him.
-```
-> Holmes was staring into the fire burning in the hearth. [...] As a new idea crossed his mind, he got up abruptly and rushed to Watson to wake him.
-
-Here, `sad` and `galvanized` are parameters of the `.mood` modifier at different times. So you can use the `.mood` modifier to track how your characters' moods change over the course of the story.
-
-As for entities, parameters should be visible or hidden in the final text. Use brackets to make them visible, parentheses to make them invisible.
-
-```markplot
-He was so @@(Holmes).mood[sad].vitality(tired) that a tear rolled down his eye.
-```
-
-> He was so sad that a tear rolled down his eye.
-
-Here, `sad` is a visible parameter of the `.mood` modifier and `tired` a hidden parameter of the `.vitality` modifier.
-
+That's it! You can start using MarkPlot right now with just these two concepts.
 
 ## What's Next?
 
-MarkPlot opens up new possibilities for both writers and developers. Here’s how you can take your next steps:
+**Ready to dive deeper?** Start with the [Quick Start Guide](quickstart.html) - it takes only 5 minutes to learn the essential MarkPlot features.
+
+MarkPlot opens up new possibilities for both writers and developers. Here's how you can take your next steps:
 
 ### For Writers
 

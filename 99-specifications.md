@@ -1,82 +1,14 @@
 ---
 title: Specifications
+layout: page_with_toc
 ---
 
 # Specifications
 
 This document presents the complete technical specifications of the MarkPlot language, detailing its syntax, features, and implementation principles. These specifications are intended for developers wishing to create tools compatible with MarkPlot, as well as for writers seeking to fully understand the language's capabilities for managing characters, plots, timelines, and other narrative elements. The current status of these specifications is preliminary (draft) and subject to evolution.
 
----
-
-## Table of Contents
-
-- [1. Core Syntax](#1-core-syntax)
-  - [1.1 Entities](#11-entities)
-  - [1.2 Entity and Content Capture](#12-entity-and-content-capture)
-  - [1.3 Entity Modifiers](#13-entity-modifiers)
-    - [1.3.1 Types of Modifiers](#131-types-of-modifiers)
-    - [1.3.2 Modifier Parameters](#132-modifier-parameters)
-      - [1.3.2.1 Combining Modifiers](#1321-combining-modifiers)
-      - [1.3.2.2 Null Modifier (Unqualified Annotation)](#1322-null-modifier-unqualified-annotation)
-      - [1.3.2.3 Multi-line Parameters](#1323-multi-line-parameters)
-    - [1.3.3 Visibility Rules](#133-visibility-rules)
-    - [1.3.4 Standard Modifiers](#134-standard-modifiers)
-      - [1.3.4.1 Reserved Capitalization](#1341-reserved-capitalization)
-      - [1.3.4.2 Core Standard Modifiers](#1342-core-standard-modifiers)
-      - [1.3.4.3 Standard Modifier Scope](#1343-standard-modifier-scope)
-      - [1.3.4.4 Overriding Standard Modifier Scope](#1344-overriding-standard-modifier-scope)
-      - [1.3.4.5 Temporal Entities](#1345-temporal-entities)
-        - [1.3.4.5.1 Absolute Time](#13451-absolute-time)
-        - [1.3.4.5.2 Abstract Time](#13452-abstract-time)
-        - [1.3.4.5.3 Alternative Calendars](#13453-alternative-calendars)
-        - [1.3.4.5.4 Temporal Scope](#13454-temporal-scope)
-        - [1.3.4.5.5 Integration Examples](#13455-integration-examples)
-    - [1.3.5 Application Specific Modifiers](#135-application-specific-modifiers)
-      - [1.3.5.1 Namespace Definition](#1351-namespace-definition)
-      - [1.3.5.2 Modifier Syntax](#1352-modifier-syntax)
-      - [1.3.5.3 Scope Rules](#1353-scope-rules)
-      - [1.3.5.4 Modifier Documentation Format](#1354-modifier-documentation-format)
-      - [1.3.5.5 Documentation Requirements](#1355-documentation-requirements)
-      - [1.3.5.6 Namespace Registration Process](#1356-namespace-registration-process)
-      - [1.3.5.7 Registration Fees and Contributions](#1357-registration-fees-and-contributions)
-    - [1.3.6 Modifiers in Nested Annotations](#136-modifiers-in-nested-annotations)
-    - [1.3.7 Modifier vs Punctuation](#137-modifier-vs-punctuation)
-  - [1.5 Null Entity](#15-null-entity)
-  - [1.6 Annotation Scope](#16-annotation-scope)
-    - [1.6.1 File-level Annotations](#161-file-level-annotations)
-    - [1.6.2 Header Annotations](#162-header-annotations)
-    - [1.6.3 Paragraph Annotations](#163-paragraph-annotations)
-    - [1.6.4 Custom Scope](#164-custom-scope)
-  - [1.7 Hidden Markdown Structures](#17-hidden-markdown-structures)
-    - [1.7.1 Syntax](#171-syntax)
-    - [1.7.2 Processing](#172-processing)
-    - [1.7.3 Use Cases](#173-use-cases)
-  - [1.8 Interaction with Markdown](#18-interaction-with-markdown)
-- [2. Processing and Workflow](#2-processing-and-workflow)
-  - [2.1 Parser Types and Processing Chain](#21-parser-types-and-processing-chain)
-  - [2.2 Cleanup Parser](#22-cleanup-parser)
-    - [2.2.1 Position in the Chain](#221-position-in-the-chain)
-    - [2.2.2 Operation Scope](#222-operation-scope)
-  - [2.3 Error Handling](#23-error-handling)
-- [3. Implementation Guidelines and Best Practices](#3-implementation-guidelines-and-best-practices)
-  - [3.1 Parser Implementation](#31-parser-implementation)
-    - [3.1.1 Parser Design](#311-parser-design)
-    - [3.1.2 Entity Handling](#312-entity-handling)
-    - [3.1.3 Error Recovery](#313-error-recovery)
-  - [3.2 Tool Creation Guidelines](#32-tool-creation-guidelines)
-    - [3.2.1 User Interface Design](#321-user-interface-design)
-    - [3.2.2 Entity Management](#322-entity-management)
-    - [3.2.3 Real-time Features](#323-real-time-features)
-- [4. Examples](#4-examples)
-  - [4.1 Basic Character Annotations](#41-basic-character-annotations)
-  - [4.2 Rich Narrative Structure](#42-rich-narrative-structure)
-  - [4.3 Timeline and Events](#43-timeline-and-events)
-  - [4.4 Relationships and Dialog](#44-relationships-and-dialog)
-
----
-
-## 1. Core Syntax
-### 1.1 Entities
+## Core Syntax
+### Entities
 At the heart of MarkPlot, there are **entities**. Entities are created and referenced using two _at_ signs `@@` followed by the entity name.
 
 MarkPlot supports two types of entity annotations:
@@ -112,7 +44,7 @@ Entity names:
 ```
 > HMS Macon references a rigid airship build and operated by the United States Navy.
 
-### 1.2 Entity and Content Capture
+### Entity and Content Capture
 Content capture is a core mechanism in MarkPlot that associates entities with the context where they appear. **Entities always capture the complete sentence in which they appear.**
 
 ```markplot
@@ -126,13 +58,13 @@ In this example:
 
 This simple, consistent rule ensures predictable behavior while maintaining the semantic connections between entities and their narrative context.
 
-### 1.3 Entity Modifiers
+### Entity Modifiers
 Entity modifiers allow you to add attributes and metadata to entities using dot notation. These modifiers can be temporary states, permanent traits, or standard features.
 ```markplot
 @@Jules.Pov             # Simple modifier
 ```
 
-#### 1.3.1 Types of Modifiers
+#### Types of Modifiers
 MarkPlot supports three distinct categories of modifiers:
 1. **local modifiers** (lowercase `.modifier`)
    - Must start with a lowercase letter
@@ -154,7 +86,7 @@ MarkPlot supports three distinct categories of modifiers:
      - Allow applications to extend the modifier system
      - Examples: `Writer:plot`, `Analysis:theme`
 
-#### 1.3.2 Modifier Parameters
+#### Modifier Parameters
 Modifiers can accept parameters using two different syntaxes:
 
 **hidden parameters** use parentheses `()` for meta-information that should not appear in the final text:
@@ -172,7 +104,7 @@ Modifiers can accept parameters using two different syntaxes:
 
 The parameter content is passed as-is to the modifier implementation, which can parse it according to its own needs.
 
-##### 1.3.2.1 Combining Modifiers
+##### Combining Modifiers
 Modifiers can be combined freely (order does not affect semantic meaning):
 ```markplot
 @@Holmes.PROFESSION(detective).mood(worried)
@@ -190,45 +122,34 @@ A parameter can be repeated if you like:
 @@Jules.mood(sad).mood(embarassed) said something.
 ```
 
-##### 1.3.2.2 Null Modifier (Unqualified Annotation)
+##### Null Modifiers (Unqualified Annotations)
 
-MarkPlot allows annotating an entity with a parameter without specifying a modifier. This is called the **null modifier**. There are two forms:
+MarkPlot allows annotating an entity with a parameter without specifying a modifier. This is called the **null modifiers**. There are two forms:
 
-- **Local null modifier** (applies only at the specific occurrence):  
+- **Local null modifier** (applies only at the specific occurrence):
   ```markplot
   @@Entity(parameter)
   ```
   This is a shortcut for `@@Entity.Note(parameter)`, where `.Note` is the standard modifier for a local note.
 
-- **Global null modifier** (applies everywhere the entity appears, unless overridden locally):  
+- **Global null modifier** (applies everywhere the entity appears, unless overridden locally):
   ```markplot
   @@Entity_(parameter)
   ```
-  This is a shortcut for `@@Entity.GNote(parameter)`, where `.GNote` is the standard modifier for a global note and the underscore after the entity name indicates global scope.
+  This is a shortcut for `@@Entity.Gnote(parameter)`, where `.Gnote` is the standard modifier for a global note and the underscore after the entity name indicates global scope.
 
-**Scope and precedence:**
-- The global null modifier attaches the unqualified note to the entity everywhere in the document, except where a local note is present for that entity.
-- The local null modifier always takes precedence over the global null modifier for a given occurrence.
-- Neither form overwrites or replaces explicit modifiers.
-
-**Intended use:**  
 The null modifier is designed for quick, unqualified annotations—information that is relevant in the moment but does not fit a specific, structured modifier. The global form is useful for defining recurring or default information about an entity, while the local form is for context-specific notes.
 
 **Examples:**
 ```markplot
-@@Anne_(red hair)                   # Equivalent to @@Anne.GNote(red hair)
-@@Anne(25 years old) smiled.        # Equivalent to @@Anne.Note(25 years old), overrides global note here
-@@Anne went to the market.          # Here, "red hair" is associated with Anne
-@@Anne(30 years old) danced.        # Equivalent to @@Anne.Note(30 years old), overrides global note here
+@@Anne_(red hair)                   # Equivalent to @@Anne.Gnote(red hair)
+@@Anne(25 years old) smiled.        # Equivalent to @@Anne.Note(25 years old)
 ```
-In these examples, "red hair" is attached to Anne globally and used everywhere except where a local note ("25 years old", "30 years old") is present.
+In these examples, "red hair" is attached to Anne globally but "25 years old" only at the time where it appears.
 
-- **Note:** Unqualified annotations are less exploitable by automated tools or structured exports. For maximum semantic clarity and tool support, prefer explicit modifiers when possible.
+Unqualified annotations are less exploitable by automated tools or structured exports. For maximum semantic clarity and tool support, prefer explicit modifiers when possible.
 
-The null modifier is also used for hidden titles and structural annotations with the null entity, e.g. `@@.(# Chapter 1)`.
-
-
-##### 1.3.2.3 Multi-line Parameters
+##### Multi-line Parameters
 Parameters can span multiple lines for better readability and organization:
 ```markplot
 @@Jules.BACKGROUND(
@@ -243,7 +164,7 @@ Key points:
 - Opening parenthesis must immediatly follow the modifier
 - Content can span multiple lines
 
-#### 1.3.3 Visibility Rules
+#### Visibility Rules
 Modifiers themselves never appear in the final text, but their parameters may:
 - **Modifiers**: Always hidden (`.drunk`, `.PROFESSION`, etc.)
 - **hidden parameters** `()`: Never appear in final text
@@ -259,18 +180,20 @@ Modifiers themselves never appear in the final text, but their parameters may:
 ```
 > detective investigated carefully.
 
-#### 1.3.4 Standard Modifiers
+#### Standard Modifiers
 Standard modifiers are documented in `namespaces/global.yaml` following the same format as application-specific modifiers (see §2.3.5.4). The specification below provides an overview of core standard modifiers, but the authoritative reference is the YAML file.
 
-##### 1.3.4.1 Reserved Capitalization
+##### Reserved Capitalization
 Modifiers starting with a capital letter (and not entirely uppercase, see §2.3.1) are reserved for standard MarkPlot features. Custom modifiers MUST start with a lowercase letter or be entirely uppercase.
 
-##### 1.3.4.2 Core Standard Modifiers
+##### Core Standard Modifiers
 - `.Type(type)`: Defines the entity type. Common types include: "character", "place", "event", "object", or may be whatever you want.
   - `.Character`: Sugar for `.Type(character)`
   - `.Place`: Sugar for `.Type(place)`
-  - `.Object`: Sugar for `.Type(object)`
   - `.Event`: Sugar for `.Type(event)`
+  - `.Object`: Sugar for `.Type(object)`
+- `.Note(content)`: Attaches a local note to an entity (shortcut: `@@Entity(content)`)
+- `.Gnote(content)`: Attaches a global note to an entity (shortcut: `@@Entity_(content)`)
 - `.Status(status)`: Indicates the status of the associated section.
   - `.Draft`: Sugar for `.Status(draft)`
   - `.Final`: Sugar for `.Status(final)`
@@ -290,7 +213,7 @@ Invalid usage (will be ignored and remains in the final text):
 @@Jules.Custom
 ```
 
-##### 1.3.4.3 Standard Modifier Scope
+##### Standard Modifier Scope
 The scope of standard modifiers is determined by their semantic nature:
 - **Type Modifiers** (`.Type`, `.Character`, `.Place`, etc.): Global by default as they define the fundamental nature of entities
 
@@ -300,7 +223,7 @@ The scope of standard modifiers is determined by their semantic nature:
 
 - **Version Modifiers** (`.Version`): Global by default as they apply to whole document sections
 
-##### 1.3.4.4 Overriding Standard Modifier Scope
+##### Overriding Standard Modifier Scope
 The default scope of any standard modifier can be explicitly overridden using scope indicators:
 - `.Modifier!` forces global scope
 - `.Modifier?` forces local scope
@@ -315,7 +238,7 @@ When using scope overrides:
 - The override applies only to the specific instance of the modifier
 - The original semantic default remains unchanged for other uses
 - Scope overrides must immediately follow the modifier name
-#### 1.3.4.5 Temporal Entities
+#### Temporal Entities
 Temporal entities are a special type of entity that makes extensive use of standard modifiers to handle dates, times, and temporal relationships in your narrative. These entities are tightly integrated with the `.Type` modifier and its standard variants (`.Date`, `.Time`, `.DateTime`) to provide both implicit and explicit temporal typing.
 
 While temporal entities have their own specific syntax formats (described below), they are recognized and processed through the standard modifier system. This integration allows for:
@@ -325,7 +248,7 @@ While temporal entities have their own specific syntax formats (described below)
 - Support for both standard and alternative calendar systems
 
 A temporal entity can be either absolute (using standard calendar) or abstract (using relative time markers). In both cases, the temporal typing system ensures consistent processing and validation.
-##### 1.3.4.5.1 Absolute Time
+##### Absolute Time
 Absolute temporal entities use ISO 8601 format with space as datetime separator:
 ```markplot
 @@(2025-04-28).Type(Date)              # Date only
@@ -362,7 +285,7 @@ Both space and 'T' separator are accepted for full ISO 8601 compatibility:
 @@(2025-04-28T14:30:00+01:00)  # ISO 8601 T separator
 ```
 
-##### 1.3.4.5.2 Abstract Time
+##### Abstract Time
 Abstract temporal entities use special format with '@' prefix followed by level indicators (Y for year, M for month, D for day):
 ```markplot
 @@(@Y1).Type(Date)              # Year 1
@@ -377,7 +300,7 @@ Shortened forms focusing on specific units are allowed:
 @@(@D42)          # Just Day 42
 ```
 
-##### 1.3.4.5.3 Alternative Calendars
+##### Alternative Calendars
 Alternative calendar systems can be specified using a suffix:
 ```markplot
 @@(3027-13-42/GST)           # Galactic Standard Time
@@ -408,7 +331,7 @@ Time zones in alternative calendars follow the same format as standard time (±H
 
 The extended range for timezone offsets (up to ±99:99) accommodates alternative calendar systems that might use different day lengths or time divisions while maintaining a consistent, parseable format.
 
-##### 1.3.4.5.4 Temporal Scope
+##### Temporal Scope
 Temporal entities follow specific scope rules:
 1. A temporal entity's scope extends until another temporal entity of the same or higher precision is encountered
 2. Lower precision entities inherit context from higher precision entities in scope
@@ -423,7 +346,7 @@ Example:
 @@(2026-01-01) New year events marked a fresh beginning.
 ```
 These scope rules allow for natural chronological organization while maintaining precision when needed.
-##### 1.3.4.5.5 Integration Examples
+##### Integration Examples
 Temporal entities can be combined with other MarkPlot features for rich narrative control:
 ```markplot
 # Combining with characters and events
@@ -439,9 +362,9 @@ These examples show how temporal entities work seamlessly with:
 - Nested entity references
 - Local modifiers for narrative mood
 - The null entity for contextual attributes
-### 1.3.5 Application Specific Modifiers
+### Application Specific Modifiers
 Applications can define their own modifiers using namespaces.
-#### 1.3.5.1 Namespace Definition
+#### Namespace Definition
 Application namespaces MUST:
 - Consist of ASCII letters only (a-z, A-Z) and digits (0-9)
 - End with a single colon (:)
@@ -454,7 +377,7 @@ Examples of valid namespaces:
 Invalid namespaces:
 - `Pip-App:` (contains hyphen)
 - `École:` (contains non-ASCII character)
-#### 1.3.5.2 Modifier Syntax
+#### Modifier Syntax
 Application-specific modifiers are formed by:
 1. The registered namespace (including colon)
 2. The modifier name (can use any capitalization)
@@ -463,7 +386,7 @@ Examples:
 @@Jules.App:plot        # App application's plot modifier
 @@Marie.Writer:character   # Writer's companion character modifier
 ```
-#### 1.3.5.3 Scope Rules
+#### Scope Rules
 Application-specific modifiers follow the same scope rules as standard modifiers:
 - Their default scope is determined by their documented semantic nature
 - Scope can be overridden using ! (global) and ? (local) modifiers
@@ -474,7 +397,7 @@ Example:
 @@Jules.App:Plot?       # Forced local scope
 ```
 Applications MUST document the default scope of their modifiers in their documentation.
-#### 1.3.5.4 Modifier Documentation Format
+#### Modifier Documentation Format
 Applications MUST document their modifiers using this standardized format:
 ```yaml
 namespace: ApplicationNamespace
@@ -498,7 +421,6 @@ modifiers:
     parameters:
       - name: paramName
         type: [string|number|date|...]
-        required: [true|false]
         description: Parameter description
         values: [value1, value2]  # Optional: enumeration of valid values
     examples:
@@ -508,12 +430,12 @@ modifiers:
       Additional implementation notes or warnings
 ```
 This format is used by all modifiers documentation, including standard modifiers (see `namespaces/global.yaml`).
-#### 1.3.5.5 Documentation Requirements
+#### Documentation Requirements
 - All registered namespaces MUST provide documentation in this format
 - All modifiers in the namespace MUST be documented
 - Version numbers MUST follow semantic versioning
 - Breaking changes MUST increment the major version number
-#### 1.3.5.6 Namespace Registration Process
+#### Namespace Registration Process
 To avoid conflicts and maintain consistency across the ecosystem, application developers MUST register their namespaces. The registration process is currently being defined and will be detailed in a future version of the specification.
 Until the registration process is formalized:
 - Developers SHOULD document their namespace choices in their application documentation
@@ -522,7 +444,7 @@ Note that once the official registration process is established:
 - Previously used unregistered namespaces will NOT be automatically grandfathered
 - Applications may need to migrate to newly assigned namespaces
 - The registration process will be designed to minimize disruption to existing applications
-#### 1.3.5.7 Registration Fees and Contributions
+#### Registration Fees and Contributions
 The namespace registration process is and will always remain **free** for everyone. This ensures that the MarkPlot ecosystem stays open and accessible to all developers, from individual open-source contributors to large companies.
 However, if you are registering a namespace for a commercial/proprietary application, we kindly encourage (but do not require) a financial contribution to support the MarkPlot project's development and maintenance. These contributions help us:
 - Maintain the registration infrastructure
@@ -536,7 +458,7 @@ Suggested contribution levels:
 - Large businesses (annual revenue over 1 million USD): 500+ USD
 All contributions are voluntary and have no impact on the registration process or timeline. The namespace registration will be processed with the same attention and priority regardless of whether a contribution is made.
 Contributing companies will be acknowledged (unless they prefer to remain anonymous) in our [SUPPORTERS.md](SUPPORTERS.md) file.
-#### 1.3.6 Modifiers in Nested Annotations
+#### Modifiers in Nested Annotations
 When using modifiers with nested annotations, there are specific rules for how they apply:
 1. **Local Scope**: Modifiers apply only to their directly associated entity, not to nested annotations:
 ```markplot
@@ -554,7 +476,7 @@ When using modifiers with nested annotations, there are specific rules for how t
 # Tools can understand this is a night scene with tired and worried characters
 ```
 
-#### 1.3.7 Modifier vs Punctuation
+#### Modifier vs Punctuation
 To avoid ambiguity between modifiers and regular text, MarkPlot follows specific rules for handling dots in the text:
 1. **Modifier Identification**:
    A dot is considered a modifier separator if and only if:
@@ -584,7 +506,7 @@ This permissive approach ensures that:
 - Typing mistakes don't break the text
 - No complex error handling is needed
 - Writers can use normal punctuation freely
-### 1.5 Null Entity
+### Null Entity
 While entities typically represent narrative elements (characters, places, events), there are cases where you want to apply modifiers or capture content without creating an actual entity. This is where the null entity `@@.` comes in.
 The null entity is a special construct that:
 - Can take any type of modifier
@@ -607,21 +529,21 @@ The null entity is particularly useful for:
 - Creating hidden document structure (see §2.7)
 Because it doesn't create actual entity relationships, the null entity is perfect for adding meta-information that should influence processing but not narrative analysis:
 ```markplot
-@@.status(draft)                      # Document status (hidden)
+@@.Status(draft)                      # Document status (hidden)
 @@.HIGHLIGHT[Important text]          # Visual formatting (visible)
 @@.editorial(Needs revision)          # Editorial notes (hidden)
 @@.type(chapter)                      # Document structure (hidden)
 ```
-### 1.6 Annotation Scope
+### Annotation Scope
 MarkPlot annotations follow specific scope rules depending on their placement and modifiers.
-#### 1.6.1 File-level Annotations
+#### File-level Annotations
 Annotations at the very beginning of a file (before any content) apply to the entire file:
 ```markplot
 @@.Author(John Doe)
 @@.Version(1.0)
 # First chapter
 ```
-#### 1.6.2 Header Annotations
+#### Header Annotations
 Apply to all content under that header until the next header of same or higher level:
 ```markplot
 @@.(# Chapter 1).Pov(Jules)
@@ -631,27 +553,27 @@ Still from Jules' point of view.
 # Chapter 2
 New chapter, POV reset.
 ```
-#### 1.6.3 Paragraph Annotations
+#### Paragraph Annotations
 Apply only to the immediately following paragraph:
 ```markplot
 @@.(* Important theme)
 This paragraph discusses the theme.
 This paragraph is not affected by the previous annotation.
 ```
-#### 1.6.4 Custom Scope
+#### Custom Scope
 Annotations apply to the sentence in which they appear:
 ```markplot
 @@.flashback(2012-28-02) This content is a flashback to that specific date.
 Normal narrative continues here without the flashback annotation.
 ```
 Tools processing these annotations should respect these scope rules when analyzing or transforming the text.
-### 1.7 Hidden Markdown Structures
-MarkPlot allows embedding Markdown syntax that will be processed for analysis but won't appear in the final text. This is achieved through a special syntax using the null entity:
+### Hidden Markdown Structures
+Combining the null entity and null local modifiers allows MarkPlot to embed Markdown syntax that will be processed for analysis but won't appear in the final text:
 ```markplot
 @@.(# Hidden Title) This sentence has a hidden structural marker.
 Normal visible text continues here...
 ```
-#### 1.7.1 Syntax
+#### Syntax
 The syntax follows this pattern:
 - Must use the null entity (`@@.`)
 - Markdown syntax is enclosed in parentheses (hidden parameters)
@@ -661,39 +583,23 @@ Examples:
 ```markplot
 @@.(# Act One) The story begins here with a hidden act marker.
 @@.(## Scene 1) This sentence starts a new scene invisibly.
-@@.(* Important theme starting here) She took his trembling hand.
-@@.(> These words are significant) Words that will appear normally.
 ```
-#### 1.7.2 Processing
+#### Processing
 - These structures are processed as regular Markdown during analysis
 - They contribute to document structure and metadata
 - They are completely removed from the final text
 - Tools should treat them as equivalent to their visible Markdown counterparts for analysis purposes
 - Each annotation applies only to its containing sentence
-#### 1.7.3 Use Cases
-- hidden document structure
-- Literary analysis markers
-- Working notes and annotations
-- Alternative organization schemes
-- Hidden emphasis for analysis
-Example of complex usage:
-```markplot
-@@.(# Chapter 1).Status(draft)
-@@.(## Opening Scene).Type(scene)[
-    @@Jules.Character[walked through] @@Paris.Place.
-    @@.(* Character introduction)
-    His @@.(**)[determined] stride revealed his state of mind.
-]
-```
-### 1.8 Interaction with Markdown
+
+### Interaction with Markdown
 MarkPlot annotations are processed before Markdown formatting:
 ```markplot
 **@@Jules.happy**     # Becomes "**Jules**"
 @@**Jules.happy**     # Remains "@@**Jules.happy**"
 ```
 This ensures consistent behavior and allows Markdown formatting to be applied to the final text.
-## 2. Processing and Workflow
-### 2.1 Parser Types and Processing Chain
+## Processing and Workflow
+### Parser Types and Processing Chain
 MarkPlot parsers can be categorized into two main types:
 1. **Analysis Parsers**: These parsers read and interpret annotations to extract information, build entity graphs, analyze relationships, or generate derived content (character sheets, timelines, etc.). They represent the core use case of MarkPlot annotations.
 2. **Production Parsers**: While not the primary focus of MarkPlot, these parsers can transform the text for specific outputs. Since they allow enriching the writing possibilities without interrupting the writing flow, they are a welcome extension of MarkPlot's capabilities.
@@ -702,18 +608,18 @@ A fundamental rule applies to ALL parsers: they MUST preserve ALL annotations in
 - Multiple interpretations of the same annotations remain possible throughout the chain
 - Annotations remain available for subsequent parsers
 The only exception to this rule is the Cleanup Parser, which is specifically designed to remove all annotations at the end of the processing chain to produce the final human-readable text.
-### 2.2 Cleanup Parser
+### Cleanup Parser
 The Cleanup Parser is a special parser responsible for removing visible MarkPlot annotations from the text. It has specific characteristics that distinguish it from other parsers:
-#### 2.2.1 Position in the Chain
+#### Position in the Chain
 The Cleanup Parser:
 - Must be the last MarkPlot parser in any processing chain
 - Can only be used once in a chain
-#### 2.2.2 Operation Scope
+#### Operation Scope
 The Cleanup Parser:
 - Resolves visible entity names (e.g., converting @@Jules_Durant to "Jules Durant")
 - Removes all visible MarkPlot annotations
 - When an annotation is removed during the cleanup process, if its removal leaves an empty line in the output, that empty line should also be removed automatically to ensures that no unnecessary blank lines are present in the final document.
-### 2.3 Error Handling
+### Error Handling
 MarkPlot follows a permissive approach to error handling:
 1. **Invalid Syntax**: Any text that cannot be interpreted as valid MarkPlot syntax is treated as regular content and left unchanged:
 ```markplot
@@ -733,41 +639,41 @@ This approach ensures that:
 - Content is never lost
 - Manual correction remains possible
 - Valid annotations are still processed even in presence of invalid ones
-## 3. Implementation Guidelines and Best Practices
-### 3.1 Parser Implementation
-#### 3.1.1 Parser Design
+## Implementation Guidelines and Best Practices
+### Parser Implementation
+#### Parser Design
 - Keep parsers single-purpose and composable
 - Ensure parsers are stateless when possible
 - Implement clear error handling and reporting
 - Support streaming processing for large documents
-#### 3.1.2 Entity Handling
+#### Entity Handling
 - Store entity references in a case-sensitive manner
 - Maintain bi-directional entity relationships
 - Index all entity occurrences with their context, including file name and line number
-#### 3.1.3 Error Recovery
+#### Error Recovery
 - Continue processing after non-critical errors
 - Maintain document integrity during partial failures
 - Provide clear error context for debugging
 - Support graceful degradation of features
-### 3.2 Tool Creation Guidelines
+### Tool Creation Guidelines
 When creating tools that support MarkPlot, consider these key aspects:
-#### 3.2.1 User Interface Design
+#### User Interface Design
 - Keep the annotation process as natural as typing
 - Avoid forcing users to use dialog boxes or menus for basic annotations
 - Provide visual feedback without being intrusive
 - Consider offering both keyboard shortcuts and mouse interactions
-#### 3.2.2 Entity Management
+#### Entity Management
 - Provide easy ways to browse and search existing entities
 - Allow quick entity reuse without breaking the writing flow
 - Consider auto-completion for entity names
 - Enable easy entity renaming with proper refactoring
-#### 3.2.3 Real-time Features
+#### Real-time Features
 - Implement incremental parsing for large documents
 - Consider background analysis for complex operations
 - Provide immediate visual feedback for annotations
-## 4. Examples
+## Examples
 This section provides practical examples of MarkPlot in action, demonstrating how the annotation language can be used in real-world writing scenarios.
-### 4.1 Basic Character Annotations
+### Basic Character Annotations
 ```markplot
 @@Jules entered the café and spotted @@(Marie).STATUS[reading] by the window.
 @@Jules.happy approached her table.
@@ -778,7 +684,7 @@ In this example:
 - Jules is visible in the text, Marie is hidden
 - A visible parameter (.STATUS[reading]) provides narrative content
 - A temporary state modifier (.happy) is applied to Jules as metadata
-### 4.2 Rich Narrative Structure
+### Rich Narrative Structure
 ```markplot
 # The Meeting @@.STATUS[Draft] @@.Version(0.2)
 ## Scene 1 @@(Paris).Place @@(1923-04-15)
@@ -792,7 +698,7 @@ This more complex example demonstrates:
 - Character and object typing
 - hidden entity references with visible parameters
 - Metadata storage with hidden parameters
-### 4.3 Timeline and Events
+### Timeline and Events
 ```markplot
 @@(1942-06-04) The @@Allied_Forces prepared for @@D_Day.Event.
 @@(1942-06-05) @@(Eisenhower).TITLE[The Supreme Commander] postponed the operation by 24 hours due to @@bad_weather.
@@ -803,7 +709,7 @@ This historical example shows how MarkPlot can track complex timelines with:
 - Events with temporal context
 - hidden entity references with visible descriptive parameters
 - Mixed visible and hidden entities for narrative control
-### 4.4 Relationships and Dialog
+### Relationships and Dialog
 ```markplot
 @@Jules.Character asked, "What do you think of my story?"
 @@Marie.Character.mood(thoughtful) considered her response. "I think the protagonist needs more development," @@(Marie).MANNER[she said finally].

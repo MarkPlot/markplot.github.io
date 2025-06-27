@@ -23,14 +23,11 @@ In this example, "Jules" is annotated with a simple, unqualified note ("smiled")
 You can also attach notes to entities, either locally or globally:
 
 ```markplot
-@@Marie(25 years old) smiled.      # Local note (same as @@Marie.Note(25 years old))
-@@Marie_(red hair)                 # Global note (same as @@Marie.GNote(red hair))
+@@Marie(25 years old) smiled.      # Local note
+@@Marie_(red hair)                 # Global note
 @@Marie went to the market.        # "red hair" is shown for Marie here
 @@Marie(30 years old) danced.      # "30 years old" overrides the global note here
 ```
-
-- `@@Entity(note)` is a shortcut for `@@Entity.Note(note)` (local note).
-- `@@Entity_(note)` is a shortcut for `@@Entity.GNote(note)` (global note).
 
 You can also use more advanced forms, for example:
 

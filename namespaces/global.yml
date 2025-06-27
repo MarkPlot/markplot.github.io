@@ -19,7 +19,6 @@ modifiers:
     parameters:
       - name: type
         type: string
-        required: true
         description: Entity type identifier
         values: [character, place, time, event, object, organization]
     examples:
@@ -50,6 +49,41 @@ modifiers:
       - code: "@@Christmas.Event"
         description: "Equivalent to @@Christmas.Type(Event)"
 
+  - name: Object
+    description: Sugar syntax for Type(object)
+    scope: global
+    examples:
+      - code: "@@Sword.Object"
+        description: "Equivalent to @@Sword.Type(object)"
+
+  - name: Note
+    description: Attaches a local note to an entity
+    scope: local
+    parameters:
+      - name: content
+        type: string
+        description: Note content to attach to the entity
+    examples:
+      - code: "@@Marie.Note(25 years old)"
+        description: "Equivalent to @@Marie(25 years old)"
+    notes: |
+      Used for context-specific information about an entity.
+      Sugar syntax: @@Entity(content)
+
+  - name: Gnote
+    description: Attaches a global note to an entity
+    scope: global
+    parameters:
+      - name: content
+        type: string
+        description: Note content to attach globally to the entity
+    examples:
+      - code: "@@Marie.Gnote(red hair)"
+        description: "Equivalent to @@Marie_(red hair)"
+    notes: |
+      Used for information that applies to all occurrences of an entity.
+      Sugar syntax: @@Entity_(content)
+
   - name: Pov
     description: Indicates point-of-view narrative sections
     scope: local
@@ -63,6 +97,10 @@ modifiers:
   - name: Status
     description: Marks status content of section or a file
     scope: local
+    parameters:
+      - name: status
+        type: string
+        description: Status value (e.g. draft, final)
     examples:
       - code: "@@.Status(draft)"
         description: "Marks following content as draft"
@@ -86,8 +124,25 @@ modifiers:
   - name: Todo
     description: Indicates something to be done
     scope: local
+    parameters:
+      - name: task
+        type: string
+        description: Description of the task to be done
     examples:
       - code: "@@.Todo(Something to do)"
         description: "Indicates something to be done"
     notes: |
       Commonly used with null entity (@@.) for section marking
+
+  - name: Version
+    description: Indicates version information for document or section
+    scope: local
+    parameters:
+      - name: version
+        type: string
+        description: Version identifier
+    examples:
+      - code: "@@.Version(1.2)"
+        description: "Marks section as version 1.2"
+    notes: |
+      Used for version control and document management
