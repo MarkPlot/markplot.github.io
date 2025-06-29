@@ -1,6 +1,6 @@
 ---
 title: Specifications
-layout: page_with_toc
+#layout: page_with_toc
 ---
 
 # Specifications

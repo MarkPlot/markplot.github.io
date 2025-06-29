@@ -1,6 +1,6 @@
 ---
 title: Quick Start
-layout: page_with_toc
+#layout: page_with_toc
 ---
 
 ## Welcome to MarkPlot!
