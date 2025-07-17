@@ -1,9 +1,7 @@
 ---
 title: Specifications
-#layout: page_with_toc
+layout: page_with_toc
 ---
-
-# Specifications
 
 This document presents the complete technical specifications of the MarkPlot language, detailing its syntax, features, and implementation principles. These specifications are intended for developers wishing to create tools compatible with MarkPlot, as well as for writers seeking to fully understand the language's capabilities for managing characters, plots, timelines, and other narrative elements. The current status of these specifications is preliminary (draft) and subject to evolution.
 

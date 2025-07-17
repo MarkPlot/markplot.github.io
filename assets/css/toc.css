@@ -76,7 +76,6 @@
 /* Desktop layout with TOC in left margin - apply to main containers */
 @media (min-width: 1201px) {
     .wrapper,
-    .page-content,
     .site-header .wrapper,
     .site-footer .wrapper {
         margin-left: 320px; /* Space for TOC + gap */
@@ -98,7 +97,6 @@
     margin: 0 0 2rem 0;
     overflow-y: auto;
     position: static;
-    width: 100%;
     z-index: 1;
 }
 
@@ -109,9 +107,8 @@
         top: 0;
         left: 0;
         width: 280px;
-        max-height: calc(100vh - 2rem);
+        height: 100vh;
         margin: 0;
-        border-radius: 8px;
         z-index: 10;
     }
 }

@@ -1,6 +1,6 @@
 ---
 title: Quick Start
-#layout: page_with_toc
+layout: page_with_toc
 ---
 
 ## Welcome to MarkPlot!
@@ -31,9 +31,87 @@ If you're new to Markdown, you can check out the [Markdown Guide](https://www.ma
 
 ## The 5-Minute MarkPlot Basics
 
-### Annotate Entities (Characters, Places, Events, or whatever)
+### Mark Entities
 
-The simplest way to annotate something in your story is to use the following syntax:
+The simpliest way to start using MarkPlot is to use our special marker `@@` before a character name :
+```markplot
+@@Character
+```
+
+For example:
+
+```
+@@Holmes looks tired.
+```
+
+**Result for reader:**
+
+> Holmes looks tired.
+
+This is enough for MarkPlot to collect data about Holmes. When this character appears again, continue to use the `@@` marker:
+
+```marplot
+@@Holmes asked @@Watson to tell the truth.
+```
+
+**Result for reader:**
+
+> Holmes asked Watson to tell the truth.
+
+OK, you don't always want to use an unique name for your characters. Holmes may appears as Sherlock ou just the "he" pronoun. We have a syntax for that too:
+```markplot
+@@(Holmes)Sherlock looked deeply at @@(Lestrade)him.
+```
+**Result for reader:**
+
+> Sherlock looked deeply at him.
+
+But, what have we done ? In fact, the `@@` marker is an _entity_ marker. What is that?
+
+**An entity is a meaningful element in your story—like a character, place, or object—that is described, referred to repeatedly, and helps structure the narrative.**
+
+### Types of entities
+
+So, by default, entities are characters. How to mark some entitiesother things ? Use _modifiers_.
+
+For example, mark a place:
+
+```
+@@London.Place was foggy yesterday.
+```
+
+or an object:
+
+```
+@@Arthur hold @@Excalibur.Object.
+```
+
+or en event:
+
+```
+@@Christmas.Event was the day after.
+```
+
+or, if you need nothing we did not think about:
+
+```
+The @@Spirit.Type(idea) was @@Hegel.
+```
+
+Those modifiers are removed for the readers :
+
+> London was foggy yesterday.
+> Arthur hold Excalibur.
+> Christmas was the day after.
+> The Spirit was Hegel.
+
+But those modifiers helps MarkPlot tools to classify your entities and make your documentation clearer. You just to have use those once: when MarkPlot learnt that London is a place, you don't have to tell it twice.
+
+This is only a special and powerful use of modifiers. You will learn more about them below.
+
+### Annotate Entities
+
+You may annotate an entity at any time easily:
 
 ```markplot
 @@Entity(parameter)
@@ -51,13 +129,6 @@ For example:
 **Behind the scenes:**
 MarkPlot-enabled tools will attach "25 years old" to Anne and "friend" to Paul as information you can see on their entity cards.
 
-<<<<<<< BEGIN MERGE CONFLICT: local copy shown first <<<<<<<<<<<< (line 65)
-||||||| COMMON ANCESTOR content follows ||||||||||||||||||||||||| (line 65)
----
-
-======= MERGED IN content follows =============================== (line 54)
-
->>>>>>> END MERGE CONFLICT >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 #### Local and Global Notes
 
 You can attach a note to an entity for just one occurrence (local note), or for all its appearances (global note):
@@ -69,44 +140,6 @@ You can attach a note to an entity for just one occurrence (local note), or for 
 
 - Use `@@Entity(note)` for a local note (applies only at this point in the text).
 - Use `@@Entity_(note)` for a global note (applies everywhere the entity appears, unless a local note is present).
-
-By default, entities are considered characters. If you want to annotate a place, object, or event, use the standard modifier `.Type`:
-
-```markplot
-@@Sherlock examined the crime scene at @@Baker_Street.Type(Place).
-```
-
-If you don’t specify a type, MarkPlot assumes it’s a character.
-
-**Result for readers:**
-> Sherlock examined the crime scene at Baker Street.
-
-**Behind the scenes:**
-MarkPlot-enabled tools can automatically generate entity cards:
-
-```markplot
-# Sherlock
-- Type: Character
-- Appearances: Chapter 1, Chapter 3
-
-# Baker_Street
-- Type: Place
-- Appearances: Chapter 1
-```
-
-### Hide Entities in Final Text
-
-Want to hide the entity name in your text but mark its presence? Add parentheses:
-
-```markplot
-@@(Sherlock)He examined the crime scene at @@Baker_Street.
-```
-
-**Result for readers:**
-> He examined the crime scene at Baker Street.
-
-**Behind the scenes:**
-The entity is still tracked, but its name is now hidden in the narrative text.
 
 ### Add Visible Details with Modifier Parameters
 
@@ -140,10 +173,10 @@ Modifier case matters in MarkPlot:
 For example:
 
 ```markplot
-@@Arthur.BRAVE.tired entered the room with @@Excalibur.Type(Object).MAGICAL.
+@@Arthur.BRAVE.tired entered the room with @@Excalibur.Object.MAGICAL.
 ```
 
-In this example, Arthur is always brave (`.BRAVE`, permanent) but only tired in this context (`.tired`, temporary). Excalibur is always magical (`.MAGICAL`, permanent) and is explicitly marked as an object using the standard modifier `.Type(Object)`.
+In this example, Arthur is always brave (`.BRAVE`, permanent) but only tired in this context (`.tired`, temporary). Excalibur is always magical (`.MAGICAL`, permanent) and is explicitly marked as an object using the standard modifier `.Object`.
 
 ### Store Hidden Metadata
 
@@ -170,11 +203,11 @@ The @@(Watson).age(35).PROFESSION[military doctor] served in Afghanistan.
 Dates are special entities that help you manage your story's timeline:
 
 ```markplot
-@@(1891-05-04) It was a foggy London morning when @@(Lestrade) arrived with news.
+@@(1891-05-04) It was a foggy London morning when @@Lestrade arrived with news.
 ```
 
 **Result for readers:**
-> It was a foggy London morning when arrived with news.
+> It was a foggy London morning when Lestrade arrived with news.
 
 **Behind the scenes:**
 MarkPlot-enabled tools can generate chronological timelines:

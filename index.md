@@ -1,6 +1,6 @@
 ---
 title: MarkPlot
-#layout: page_with_toc
+layout: page_with_toc
 ---
 > A lightweight annotation language for writers
 

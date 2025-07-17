@@ -30,4 +30,10 @@ url: "" # the base hostname & protocol for your site, e.g. http://example.com
 github_username: markplot
 remote_theme: "jekyll/minima@1e8a445"
 plugins:
-- jekyll-remote-theme
+  - jekyll-remote-theme
+minima:
+  hide_site_feed_link: true # `false` or `null` by default
+  nav_pages:
+    - 10-quickstart.md
+    - 40-cheat-sheet.md
+    - 99-specifications.md
